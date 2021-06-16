@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OnlineCricketStoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Attribute">
+          <Key>
+            <PropertyRef Name="AttributeId" />
+          </Key>
+          <Property Name="AttributeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AttributeName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ProductAttributes">
+          <Key>
+            <PropertyRef Name="ProductAttrID" />
+          </Key>
+          <Property Name="ProductAttrID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="AttributeId" Type="int" />
+          <Property Name="Attribute" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar(max)" />
+          <Property Name="PricePerItem" Type="int" />
+          <Property Name="AvgCustomerRating" Type="int" />
+        </EntityType>
+        <Association Name="FK__ProductAt__Attri__182C9B23">
+          <End Role="Attribute" Type="Self.Attribute" Multiplicity="0..1" />
+          <End Role="ProductAttributes" Type="Self.ProductAttributes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Attribute">
+              <PropertyRef Name="AttributeId" />
+            </Principal>
+            <Dependent Role="ProductAttributes">
+              <PropertyRef Name="AttributeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductAt__Produ__173876EA">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="ProductAttributes" Type="Self.ProductAttributes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ProductAttributes">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OnlineCricketStoreModelStoreContainer">
+          <EntitySet Name="Attribute" EntityType="Self.Attribute" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductAttributes" EntityType="Self.ProductAttributes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ProductAt__Attri__182C9B23" Association="Self.FK__ProductAt__Attri__182C9B23">
+            <End Role="Attribute" EntitySet="Attribute" />
+            <End Role="ProductAttributes" EntitySet="ProductAttributes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductAt__Produ__173876EA" Association="Self.FK__ProductAt__Produ__173876EA">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductAttributes" EntitySet="ProductAttributes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OnlineCricketStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Attribute">
+          <Key>
+            <PropertyRef Name="AttributeId" />
+          </Key>
+          <Property Name="AttributeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AttributeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProductAttributes" Relationship="Self.FK__ProductAt__Attri__182C9B23" FromRole="Attribute" ToRole="ProductAttributes" />
+        </EntityType>
+        <EntityType Name="ProductAttribute">
+          <Key>
+            <PropertyRef Name="ProductAttrID" />
+          </Key>
+          <Property Name="ProductAttrID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="AttributeId" Type="Int32" />
+          <Property Name="Attribute" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Attribute1" Relationship="Self.FK__ProductAt__Attri__182C9B23" FromRole="ProductAttributes" ToRole="Attribute" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__ProductAt__Produ__173876EA" FromRole="ProductAttributes" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PricePerItem" Type="Int32" />
+          <Property Name="AvgCustomerRating" Type="Int32" />
+          <NavigationProperty Name="ProductAttributes" Relationship="Self.FK__ProductAt__Produ__173876EA" FromRole="Products" ToRole="ProductAttributes" />
+        </EntityType>
+        <Association Name="FK__ProductAt__Attri__182C9B23">
+          <End Role="Attribute" Type="Self.Attribute" Multiplicity="0..1" />
+          <End Role="ProductAttributes" Type="Self.ProductAttribute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Attribute">
+              <PropertyRef Name="AttributeId" />
+            </Principal>
+            <Dependent Role="ProductAttributes">
+              <PropertyRef Name="AttributeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductAt__Produ__173876EA">
+          <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="ProductAttributes" Type="Self.ProductAttribute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ProductAttributes">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CricketEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Attributes" EntityType="Self.Attribute" />
+          <EntitySet Name="ProductAttributes" EntityType="Self.ProductAttribute" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <AssociationSet Name="FK__ProductAt__Attri__182C9B23" Association="Self.FK__ProductAt__Attri__182C9B23">
+            <End Role="Attribute" EntitySet="Attributes" />
+            <End Role="ProductAttributes" EntitySet="ProductAttributes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductAt__Produ__173876EA" Association="Self.FK__ProductAt__Produ__173876EA">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductAttributes" EntitySet="ProductAttributes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OnlineCricketStoreModelStoreContainer" CdmEntityContainer="CricketEntities">
+          <EntitySetMapping Name="Attributes">
+            <EntityTypeMapping TypeName="OnlineCricketStoreModel.Attribute">
+              <MappingFragment StoreEntitySet="Attribute">
+                <ScalarProperty Name="AttributeId" ColumnName="AttributeId" />
+                <ScalarProperty Name="AttributeName" ColumnName="AttributeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductAttributes">
+            <EntityTypeMapping TypeName="OnlineCricketStoreModel.ProductAttribute">
+              <MappingFragment StoreEntitySet="ProductAttributes">
+                <ScalarProperty Name="ProductAttrID" ColumnName="ProductAttrID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="AttributeId" ColumnName="AttributeId" />
+                <ScalarProperty Name="Attribute" ColumnName="Attribute" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="OnlineCricketStoreModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="PricePerItem" ColumnName="PricePerItem" />
+                <ScalarProperty Name="AvgCustomerRating" ColumnName="AvgCustomerRating" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

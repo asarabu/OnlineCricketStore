@@ -1,0 +1,57 @@
+﻿@model IEnumerable<OnlineCricketStore.ViewModels.ProductsVM>  
+@{
+
+}
+
+
+<div class="container-fluid">
+    <h1>Cricket bats</h1> <img>
+    <img height="100" width="100" src="~/Images/cricbat.jpg" /><img />
+
+    <div class="row">
+        <div class="col-md-4">
+            <img height="500" width="500" src="~/Images/SS-7.jpg" /><img />
+            <p>
+                SS Vintage 7 Finisher- MS Dhoni Edition
+            </p>
+            <p><a class="btn btn-default" onclick="OnClick(1)">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <img height="500" width="500" src="~/Images/Spartan-Gayle-THE-BOSS-Junior-Cricket-Bat-2.jpg" /><img />
+            <p>Spartan - Gayle Edition</p>
+            <p><a class="btn btn-default" onclick="OnClick(3)">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <img height="500" width="500" src="~/Images/MRF-VK.jpg" /><img />
+            <p>MRF-VK Virat Edition</p>
+            <p><a class="btn btn-default" onclick="OnClick(2)">Learn more &raquo;</a></p>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var serviceURL = '/Home/GetProductDataById';
+    function OnClick(i) {
+        $.ajax({
+            type: "GET",
+            url: serviceURL,
+            data: { id: i },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: successFunc,
+            error: errorFunc
+        });
+
+        function successFunc(data, status) {
+            alert("Success");
+    /**/
+}
+
+function errorFunc() {
+    alert('error');
+}
+}
+
+</script>
+
+

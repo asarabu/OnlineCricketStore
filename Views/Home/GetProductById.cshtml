@@ -1,0 +1,27 @@
+﻿@model OnlineCricketStore.ViewModels.ProductsVM
+@{
+    
+}
+
+<h2>GetProductById</h2>
+
+<div class="container-fluid">
+    <h1>@ViewBag.Productname</h1> <img>
+    <img height="100" width="100" src="~/Images/cricbat.jpg" /><img />
+
+    <div class="row">
+        <div class="col-lg-6">
+            <img height="1500" width="1500" src="@ViewBag.Image" /><img />
+            @*<p>
+                SS Vintage 7 Finisher- MS Dhoni Edition
+            </p>*@
+            @*<p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>*@
+        </div>
+        <ul>
+            <li>Weight of the bat: @Model.Weight</li>
+            <li>Grade of Willow: @Model.WillowGrade</li>
+            <li>Grip Color: @Model.GripColor</li>
+        </ul>
+        
+    </div>
+</div>
